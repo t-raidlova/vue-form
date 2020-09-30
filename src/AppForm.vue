@@ -139,21 +139,6 @@ export default {
       },
     };
   },
-  computed: {
-    passwordValidation() {
-      let errors = [];
-      for (let condition of this.passwordRules) {
-        if (!condition.regex.test(this.password)) {
-          errors.push(condition.message);
-        }
-      }
-      if (errors.length === 0) {
-        return { valid: true, errors };
-      } else {
-        return { valid: false, errors };
-      }
-    },
-  },
   methods: {
     formSubmit() {
       fetch('https://jsonplaceholder.typicode.com/posts', {
