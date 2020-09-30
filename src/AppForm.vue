@@ -1,10 +1,4 @@
 <template>
-  <div class="error" v-if="errors.length">
-    <ul>
-      <li v-for="(error, i) in errors" :key="i">{{ error }}</li>
-    </ul>
-  </div>
-
   <div v-if="this.submitted === true">
     <AppFormSubmitted />
   </div>
@@ -115,7 +109,11 @@
         </button>
       </div>
     </form>
-    <!-- Debug: {{ user }} -->
+    <div class="error" v-if="errors.length">
+      <ul>
+        <li v-for="(error, i) in errors" :key="i">{{ error }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -140,6 +138,21 @@ export default {
         newsletter: null,
       },
     };
+  },
+  computed: {
+    passwordValidation() {
+      let errors = [];
+      for (let condition of this.passwordRules) {
+        if (!condition.regex.test(this.password)) {
+          errors.push(condition.message);
+        }
+      }
+      if (errors.length === 0) {
+        return { valid: true, errors };
+      } else {
+        return { valid: false, errors };
+      }
+    },
   },
   methods: {
     formSubmit() {
@@ -292,6 +305,14 @@ $text-color-light: #fefefe;
       background-color: #242ec0;
     }
   }
+}
+
+.error {
+  background: $error-color;
+  color: $text-color-light;
+  width: 40%;
+  padding: 3rem;
+  margin: 2rem auto;
 }
 
 //changes colors from autocopmlete defaults

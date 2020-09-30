@@ -34,12 +34,4 @@ body {
   font-size: 1.2rem;
   background: #fefefe;
 }
-
-.error {
-  background: $error-color;
-  color: $text-color-light;
-  padding: 3rem;
-  position: absolute;
-  right: 2rem;
-}
 </style>
